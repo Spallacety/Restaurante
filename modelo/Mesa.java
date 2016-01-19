@@ -64,11 +64,19 @@ public class Mesa {
 			valor *= 1.1;
 		}
 		
+		if (this.tipo == Mesa.SECUNDARIA){
+			valor = 0;
+			return valor;
+		}
 		return valor;
 	}
 	
 	public String getStatus() {
 		return status;
+	}
+	
+	public void setStatus(String status) {
+		this.status = status;
 	}
 	
 	public void setComTaxa(boolean comTaxa){
@@ -83,14 +91,35 @@ public class Mesa {
 		return numero;
 	}
 	
-	public String toString() {
-		if (this.status != Mesa.OCUPADA){
-			return "Mesa n. "+numero+"\nMesa fechada.\n";
+	public Pedido[] getPedidos() {
+		return pedidos;
+	}
+	
+	public void juntarMesas(Mesa mesa){
+		this.mesaJuntada = mesa;
+		mesa.mesaJuntada = this;
+		mesa.tipo = Mesa.SECUNDARIA;
+		int temp = this.contadorDePedidos;
+		for (Pedido pedido : mesa.getPedidos()) {
+			adicionarPedido(pedido);
 		}
-		String str = "\nMesa n. "+numero 
-					+ "\nNumero de pedidos: "+this.contadorDePedidos
+		if (mesa.getStatus() != Mesa.OCUPADA)
+			mesa.setStatus(Mesa.OCUPADA);
+		this.contadorDePedidos = temp + mesa.contadorDePedidos;
+	}
+	
+	public String toString() {
+		String str = "\nMesa n. "+numero;
+					if (this.status != Mesa.OCUPADA){
+						str += "\nMesa fechada.\n";
+						return str;
+					}
+					if (this.tipo == Mesa.SECUNDARIA){
+						str += "\nA conta desta mesa foi pra mesa " + mesaJuntada.getNumero()+".";
+						return str;
+					}
+					str += "\nNumero de pedidos: "+this.contadorDePedidos
 					+ "\nPedido\t\tValor\n**********************\n";
-					
 					for (Pedido pedido : pedidos) {
 						if (pedido == null) break;
 						str +=pedido.getDescricao()+"\t\t"+pedido.getValor()+"\n";

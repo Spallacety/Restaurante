@@ -21,6 +21,8 @@ public class TestaRestaurante {
 		m2.adicionarPedido(p2);
 		m2.setRateio(3);
 		m2.setComTaxa(false);
+		m2.adicionarPedido(p1);
+		m1.juntarMesas(m2);
 		
 		for (Mesa mesa : restaurante.getMesas()){
 			System.out.println(mesa);
