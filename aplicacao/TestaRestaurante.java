@@ -8,8 +8,7 @@ public class TestaRestaurante {
 
 	public static void main(String[] args) {
 		Restaurante restaurante = new Restaurante("Cajuina", 10);
-		
-		System.out.println(restaurante);
+				System.out.println(restaurante);
 		
 		restaurante.abrirMesa(1);
 		restaurante.abrirMesa(2);

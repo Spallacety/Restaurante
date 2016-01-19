@@ -35,8 +35,7 @@ public class Mesa {
 		if (this.status != Mesa.OCUPADA){
 			System.out.println("Por favor, abra a mesa primeiro!");
 			return;
-		}
-		
+		}		
 		pedidos[contadorDePedidos++] = pedido;
 		
 		if (contadorDePedidos == qtdMaximaDePedidosAtual){
